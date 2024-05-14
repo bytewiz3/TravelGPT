@@ -79,8 +79,7 @@ Upon initiating a pull request, an automated CLA system will assess if your cont
 
 ### Contributors
 
-This project exists thanks to all the people who contribute.
-<a href="https://github.com/bytewiz3/TravelGPT/graphs/contributors">
-</a>
+Thanks to all the people who contributed to this innovative project.
+<a href="https://github.com/bytewiz3/TravelGPT/graphs/contributors">Contributor List</a>
 
 
