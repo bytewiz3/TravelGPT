@@ -83,3 +83,7 @@ Thanks to all the people who contributed to this innovative project.
 <a href="https://github.com/bytewiz3/TravelGPT/graphs/contributors">Contributor List</a>
 
 
+## License
+
+MIT 
+
