@@ -41,4 +41,34 @@ c. Install dependencies.
 pip3 install -r requirements.txt
 ```
 
+## Usage
+You should obtain an APl key from OpenAl. Once you have the key, set it as an environment variable named OPENAI API KEY.
+
+**Set OpenAI API Key**: Replace `$YOUR_OPENAI_API_KEY` with your
+   actual OpenAI API key.
+
+   On macOS or Linux systems,
+
+   ```bash
+   export OPENAI_API_KEY=$YOUR_OPENAI_API_KEY
+   ```
+
+   On Windows systems,
+
+   ```powershell
+   setx OPENAI_API_KEY $YOUR_OPENAI_API_KEY
+   ```
+For example:
+```sh
+export OPENAI_API_KEY='sk...DAHY'
+```
+
+You can then run the code using the following command:
+```sh
+cd src/
+
+python test.py
+```
+
+Create an account on the website, then you're good to go! Please feel free to ask our invincible travel agent anything!
 
