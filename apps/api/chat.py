@@ -19,6 +19,8 @@ from common.utils import load_yaml
 from common.utils.id_worker import DefaultIdWorker
 from common.utils.openai_utils import get_openai_stream_generator, get_openai_generator, get_pre_messages
 
+route = APIRouter()
+
 load_dotenv()
 
 # Read application configuration
@@ -38,5 +40,14 @@ model = os.environ.get("OPENAI_API_MODEL") or cfg.get("open_ai").get("model")
 proxy = os.environ.get("OPENAI_API_PROXY") or cfg.get("open_ai").get("proxy") or None
 # HTTP client with proxy
 http_client = httpx.Client(proxy=proxy) if proxy else httpx.Client()
+
+client = OpenAI(
+    timeout=timeout,
+    api_key=api_key,
+    http_client=http_client,
+)
+
+travel_message = [{"role": "travel", "content": travel_content}]
+
 
 
