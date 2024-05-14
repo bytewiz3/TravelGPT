@@ -1,0 +1,5 @@
+/logs
+/venv
+/.git
+/.idea
+/__pycache__
