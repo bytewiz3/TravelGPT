@@ -19,4 +19,24 @@ from common.utils import load_yaml
 from common.utils.id_worker import DefaultIdWorker
 from common.utils.openai_utils import get_openai_stream_generator, get_openai_generator, get_pre_messages
 
+load_dotenv()
+
+# Read application configuration
+cfg = load_yaml("config/application.yaml")
+
+# Request timeout
+timeout = os.environ.get("OPENAI_API_TIMEOUT") or cfg.get("open_ai").get("timeout")
+# API_KEY
+api_key = os.environ.get("OPENAI_API_KEY") or cfg.get("open_ai").get("api_key")
+# System content
+sys_content = os.environ.get("OPENAI_API_SYS_CONTENT") or cfg.get("open_ai").get("sys_content")
+# Session start content
+travel_content = os.environ.get("OPENAI_API_TRAVEL_CONTENT") or cfg.get("open_ai").get("travel_content")
+# Model in use
+model = os.environ.get("OPENAI_API_MODEL") or cfg.get("open_ai").get("model")
+# Proxy
+proxy = os.environ.get("OPENAI_API_PROXY") or cfg.get("open_ai").get("proxy") or None
+# HTTP client with proxy
+http_client = httpx.Client(proxy=proxy) if proxy else httpx.Client()
+
 
