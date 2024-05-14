@@ -49,5 +49,13 @@ client = OpenAI(
 
 travel_message = [{"role": "travel", "content": travel_content}]
 
+@logger.catch()
+@route.post("/_new_chat", summary='Create a new chat session')
+async def new_chat():
+    user = CurrentUser(None, None)
+    session_id = "N" + str(DefaultIdWorker.get_id())
+    new_message = {"session_id": session_id, "messages": travel_message}
+    await save_chat_history(user, new_message)
+    return success("Successfully created a new temporary session", new_message)
 
 
