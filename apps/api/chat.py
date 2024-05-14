@@ -90,3 +90,21 @@ async def chat(message: dict):
     return EventSourceResponse(get_openai_stream_generator(message_list))
 
 
+@logger.catch()
+@route.post("/_save", summary='Save message history')
+async def save(message: dict = None):
+    """
+     {"session_id", "123", "role":"user","content":"Hello"}
+    """
+    session_id = message.get("session_id")
+    content = message.get("content")
+    check_not_empty(session_id, "Session ID cannot be empty")
+    check_not_empty(content, "Message content cannot be empty")
+
+    await save_chat_history(None, {
+        "session_id": session_id,
+        "messages": [{"role": message.get("role"), "content": content}]
+    })
+    return success("Session saved successfully", {"session_id": session_id})
+
+
