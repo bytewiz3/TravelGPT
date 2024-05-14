@@ -59,3 +59,34 @@ async def new_chat():
     return success("Successfully created a new temporary session", new_message)
 
 
+@logger.catch()
+@route.post("/_chat", summary='Send messages to ChatGPT')
+async def chat(message: dict):
+    """
+     {"session_id", "123", "role":"user", "content":"Hello"}
+    """
+    session_id = message.get("session_id")
+    content = message.get("content")
+    check_not_empty(session_id, "Session ID cannot be empty")
+    check_not_empty(content, "Message content cannot be empty")
+
+    your_message = {"role": "user", "content": content}
+    logger.info(f"Sending message: `{your_message}`")
+
+    # Get message history
+    history_message_list = await get_history_by_session_id(session_id)
+    message_list = []
+    for item in history_message_list:
+        message_list.append(item.get("message"))
+    message_list.append(your_message)
+
+    # Save your message
+    await save_chat_history(None, {
+        "session_id": session_id,
+        "messages": [your_message]
+    })
+
+    # Send message, return a streaming response
+    return EventSourceResponse(get_openai_stream_generator(message_list))
+
+
