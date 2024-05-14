@@ -14,4 +14,31 @@ Making planning travels has neven so easy before with Explore Ease. The website 
 - [Contributing](#contributing)
 - [License](#license)
 
+## Installation
+### Requirements
+- Linux/MacOS/Windows
+- Python 3.80+
+- [openai](https://github.com/openai)
+
+a. Clone the project.
+```shell
+git clone https://github.com/bytewiz3/TravelGPT
+
+cd TravelGPT
+```
+
+b. Create a conda virtual environment and activate it.
+
+```shell
+conda create -n travel python=3.8 -y
+
+conda activate travel
+```
+
+c. Install dependencies.
+
+```shell
+pip3 install -r requirements.txt
+```
+
 
