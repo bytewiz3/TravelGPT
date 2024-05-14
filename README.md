@@ -7,4 +7,11 @@ Explore Ease is a state-of-the-art tool designed to create crafted travel plans 
 
 Making planning travels has neven so easy before with Explore Ease. The website changes the generated travel plan based on user input. The plan can include all aspects of food, accommodation and transportation. So what are you waiting for? Go checkout out now! 🔥
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
 
