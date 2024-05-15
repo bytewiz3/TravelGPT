@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 初始化样式
+------------------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none !important;
+    font-family: "SourceHanSansCN-Regular";
+}
+
+
+/* 去除文本被选中时的蓝色默认样式 */
+
+::selection {
+    // background-color: transparent;
+}
+
+:root {
+    --next-color-white: #ffffff;
+    --next-bg-main-color: #f8f8f8;
+    --next-bg-color: #f5f5ff;
+    --next-border-color-light: #f1f2f3;
+    --next-color-primary-lighter: #ecf5ff;
+    --next-color-success-lighter: #f0f9eb;
+    --next-color-warning-lighter: #fdf6ec;
+    --next-color-danger-lighter: #fef0f0;
+    --next-color-dark-hover: #0000001a;
+    --next-color-menu-hover: rgba(0, 0, 0, 0.2);
+    --next-color-user-hover: rgba(0, 0, 0, 0.04);
+    --next-color-seting-main: #e9eef3;
+    --next-color-seting-aside: #d3dce6;
+    --next-color-seting-header: #b3c0d1;
+}
+
+html,
+body,
+#app {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    background: transparent;
+    overflow-x: auto;
+}
+
+
+/* 字体大小全局样式
+------------------------------- */
+
+@for $i from 10 through 50 {
+    .font#{$i} {
+        font-size: #{$i}px !important;
+    }
+}
+
+
+/* 外边距、内边距全局样式
+------------------------------- */
+
+@for $i from 1 through 35 {
+    .mt#{$i} {
+        margin-top: #{$i}px !important;
+    }
+    .mr#{$i} {
+        margin-right: #{$i}px !important;
+    }
+    .mb#{$i} {
+        margin-bottom: #{$i}px !important;
+    }
+    .ml#{$i} {
+        margin-left: #{$i}px !important;
+    }
+    .pt#{$i} {
+        padding-top: #{$i}px !important;
+    }
+    .pr#{$i} {
+        padding-right: #{$i}px !important;
+    }
+    .pb#{$i} {
+        padding-bottom: #{$i}px !important;
+    }
+    .pl#{$i} {
+        padding-left: #{$i}px !important;
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(100%);
+    }
+    80% {
+        transform: translateX(-20px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+// 文本换行
+$num_list: 1,
+2,
+3,
+4,
+5;
+@each $num in $num_list {
+    .ellipsis-#{$num} {
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: normal !important;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        -webkit-line-clamp: $num;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.color-num1 {
+    color: rgba(29, 198, 229, 1);
+}
+
+.color-text1 {
+    color: rgba(76, 234, 255, 1);
+}
+
+// 滚动条样式美化
+::-webkit-scrollbar-track-piece {
+    //滚动条凹槽的颜色，还可以设置边框属性
+    background-color: none;
+}
+
+ ::-webkit-scrollbar {
+    //滚动条的宽度
+    width: 5px;
+    height: 9px;
+}
+
+ ::-webkit-scrollbar-thumb {
+    //滚动条的设置
+    background-color: #dddddd;
+    background-clip: padding-box;
+    min-height: 28px;
+    border-radius: 3px;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+
+
+/* 定义抖动动画 */
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    10%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-1px);
+    }
+    20%,
+    60%,
+    80% {
+        transform: translateX(0px);
+    }
+}
+
+
+/* 应用抖动动画到鼠标悬浮的元素 */
+
+.shake:hover {
+    animation: shake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+}
