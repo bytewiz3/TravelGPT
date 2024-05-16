@@ -53,5 +53,7 @@ client = OpenAI(
     http_client=http_client,
 )
 
+travel_message = [{"role": "travel", "content": travel_content}]
+
 
 
