@@ -239,4 +239,63 @@ async def delete_history(user: CurrentUser = Depends(CurrentUser),
     session.commit()
     return success("Session message content deleted successfully")
 
+@logger.catch()
+async def save_chat_history(user: CurrentUser = Depends(CurrentUser),
+                            his_message: dict = None):
+    """
+    {
+        "session_id": "123",
+        "messages": [
+            {"id": 1, "role": "user","content": "Hello"}
+        ]
+    }
+    """
+    if not his_message:
+        return success("No message content passed")
+
+    message_list = his_message.get("messages")
+    if not message_list and len(message_list) == 0:
+        return success("No message content passed")
+
+    session_id = his_message.get("session_id")
+    # Create a new record
+    is_new = session_id is None or session_id == ""
+
+    session_id = str(DefaultIdWorker.get_id()) if is_new else session_id
+
+    session = new_session()
+    for message in message_list:
+        # If already exists, do not operate
+        id_key = int(message.get("id") or 0)
+        if id_key > 0:
+            chat_history = session.query(ChatHistory).filter_by(id=id_key).first()
+            if chat_history:
+                logger.info(f"Record already exists, skipping id: {id_key}")
+                continue
+
+        role = message.get("role")
+        chat_history = ChatHistory()
+        chat_history.session_id = session_id
+        if user:
+            chat_history.user_id = user.user_id
+        else:
+            chat_history.user_id = -1
+        # Type: 0 - System, 1 - User, 2 - Bot
+        chat_history.type = 0 if role == "system" else (2 if role == "user" else 3 if role == "assistant" else 1)
+        chat_history.content = json.dumps({"role": role, "content": message.get("content")}, ensure_ascii=False)
+        session.add(chat_history)
+
+    # Establish user session history relationship
+    if is_new and user:
+        relation = Relation()
+        relation.from_key = user.user_id
+        relation.to_key = session_id
+        relation.category = 'chat_his'
+        relation.direction = 1
+        session.add(relation)
+
+    session.commit()
+    session.flush()
+    return session_id
+
 
