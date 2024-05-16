@@ -28,22 +28,22 @@ from common.utils.openai_utils import get_openai_stream_generator, get_openai_ge
 
 load_dotenv()
 
-# 读取应用配置
+# Read application configuration
 cfg = load_yaml("config/application.yaml")
 
-# 访问超时时间
+# Access timeout
 timeout = os.environ.get("OPENAI_API_TIMEOUT") or cfg.get("open_ai").get("timeout")
 # API_KEY
 api_key = os.environ.get("OPENAI_API_KEY") or cfg.get("open_ai").get("api_key")
-# 系统内容
+# System content
 sys_content = os.environ.get("OPENAI_API_SYS_CONTENT") or cfg.get("open_ai").get("sys_content")
-# 旅游内容
+# Travel content
 travel_content = os.environ.get("OPENAI_API_TRAVEL_CONTENT") or cfg.get("open_ai").get("travel_content")
-# 使用模型
+# Model in use
 model = os.environ.get("OPENAI_API_MODEL") or cfg.get("open_ai").get("model")
-# 代理
+# Proxy
 proxy = os.environ.get("OPENAI_API_PROXY") or cfg.get("open_ai").get("proxy") or None
-# 带代理的客户端
+# Client with proxy
 http_client = httpx.Client(proxy=proxy) if proxy else httpx.Client()
 
 
