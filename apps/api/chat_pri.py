@@ -23,7 +23,7 @@ from operator import itemgetter
 
 from common.utils.openai_utils import get_openai_stream_generator, get_openai_generator
 
-
+route = APIRouter()
 
 
 load_dotenv()
@@ -45,5 +45,13 @@ model = os.environ.get("OPENAI_API_MODEL") or cfg.get("open_ai").get("model")
 proxy = os.environ.get("OPENAI_API_PROXY") or cfg.get("open_ai").get("proxy") or None
 # Client with proxy
 http_client = httpx.Client(proxy=proxy) if proxy else httpx.Client()
+
+client = OpenAI(
+    # base_url="https://api.openai-proxy.com/",
+    timeout=timeout,
+    api_key=api_key,
+    http_client=http_client,
+)
+
 
 
