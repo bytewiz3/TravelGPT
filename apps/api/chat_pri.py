@@ -83,3 +83,59 @@ async def new_chat_pri(user: CurrentUser = Depends(CurrentUser)):
 
 
 
+
+# @logger.catch()
+# @route.post("/_chat_pri", summary='Send message to ChatGPT')
+# async def chat_pri(user: CurrentUser = Depends(CurrentUser),
+#                    message: dict = None):
+#     """
+#     {"messages":[{"session_id", "123", "role":"user","content":"Hello"}]}
+#     """
+#     request_messages = message.get("messages") or []
+#     if len(request_messages) == 0:
+#         return error("Message cannot be empty")
+#
+#     message_list = [{
+#         "role": "user",
+#         "content": travel_content or "Now you are a travel expert, master of travel time planning."
+#     }]
+#     message_list.extend(request_messages)
+#
+#     logger.info(f"Sending message: `{message_list}`")
+#
+#     # Send message and return streaming response
+#     return EventSourceResponse(get_openai_stream_generator(message_list))
+
+@logger.catch()
+@route.post("/_chat_pri", summary='Send message to ChatGPT')
+async def chat_pri(user: CurrentUser = Depends(CurrentUser),
+                   message: dict = None):
+    """
+     {"session_id", "123", "role":"user", "content":"Hello"}
+    """
+    session_id = message.get("session_id")
+    content = message.get("content")
+    check_not_empty(session_id, "Session ID cannot be empty")
+    check_not_empty(content, "Message content cannot be empty")
+
+    your_message = {"role": "user", "content": content}
+    logger.info(f"Sending message: `{your_message}`")
+
+    # Get history messages
+    history_message_list = await get_history_by_session_id(session_id)
+    message_list = []
+    for item in history_message_list:
+        message_list.append(item.get("message"))
+    message_list.append(your_message)
+
+    # Save your message
+    await save_chat_history(user, {
+        "session_id": session_id,
+        "messages": [your_message]
+    })
+
+    # Send message and return streaming response
+    return EventSourceResponse(get_openai_stream_generator(message_list))
+
+
+
