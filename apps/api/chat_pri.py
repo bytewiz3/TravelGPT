@@ -162,4 +162,38 @@ async def save_pri(user: CurrentUser = Depends(CurrentUser),
     })
     return success("Session saved successfully", {"session_id": session_id})
 
+@logger.catch()
+@route.post("/history/list", summary='Get message history')
+async def history(user: CurrentUser = Depends(CurrentUser),
+                  params: dict = None):
+    session_id = params.get("session_id") or ""
+    session = new_session()
+    chat_history_list = session.query(ChatHistory) \
+        .filter(or_(ChatHistory.user_id == user.user_id),
+                or_(ChatHistory.session_id == session_id, session_id is None or session_id == ""),
+                and_(ChatHistory.is_deleted == 0)
+                ) \
+        .join(Relation, and_(ChatHistory.user_id == Relation.from_key,
+                             ChatHistory.session_id == Relation.to_key,
+                             Relation.is_deleted == 0,
+                             Relation.direction == 1,
+                             Relation.category == 'chat_his')) \
+        .order_by(asc(ChatHistory.id)).all()
+    # Filter returned fields
+    filter_chat_history = [{"id": item.id,
+                            "session_id": item.session_id,
+                            "message": json.loads(item.content)}
+                           for item in chat_history_list]
+
+    result = []
+    if len(filter_chat_history) > 0:
+        sort_chat_history = sorted(filter_chat_history,
+                                   key=itemgetter('session_id'))
+        for key, value in groupby(sort_chat_history,
+                                  key=itemgetter('session_id')):
+            result.append({"session_id": key, "messages": list(value)})
+
+    return success("Successfully retrieved", result)
+
+
 
