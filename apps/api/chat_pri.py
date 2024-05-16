@@ -220,5 +220,23 @@ async def delete_history(user: CurrentUser = Depends(CurrentUser),
     session.commit()
     return success("Sessions deleted successfully")
 
+@logger.catch()
+@route.post("/_delete_history_item", summary='Delete message history (single item)')
+async def delete_history(user: CurrentUser = Depends(CurrentUser),
+                         params: dict = None):
+    id_list = params.get("id_list") or []
+    check_not_empty_list(id_list, "Session IDs cannot be empty")
+    session = new_session()
+    try:
+        session.query(ChatHistory) \
+            .filter(ChatHistory.id.in_(id_list)) \
+            .filter(Relation.is_deleted == 0) \
+            .update({"is_deleted": 1}, synchronize_session=False)
+    except Exception as e:
+        print(e)
+        session.rollback()
+        return error("Failed to delete session message content", 501)
+    session.commit()
+    return success("Session message content deleted successfully")
 
 
