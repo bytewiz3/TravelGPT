@@ -56,4 +56,30 @@ client = OpenAI(
 travel_message = [{"role": "travel", "content": travel_content}]
 
 
+# @logger.catch()
+# @route.post("/_new_chat_pri", summary='Create a new session')
+# async def new_chat_pri(user: CurrentUser = Depends(CurrentUser)):
+#     travel_message = {
+#         "messages": [{"role": "travel", "content": travel_content}]
+#     }
+#     session_id = await save_chat_history(user, travel_message)
+#     travel_message.update({"session_id": session_id})
+#
+#     message_list = [{
+#         "role": "user",
+#         "content": sys_content or "Now you are a travel expert, master of travel time planning."
+#     }]
+#     await get_openai_generator(message_list)
+#
+#     return success("New session created successfully", travel_message)
+
+@logger.catch()
+@route.post("/_new_chat_pri", summary='Create a new session')
+async def new_chat_pri(user: CurrentUser = Depends(CurrentUser)):
+    session_id = "U" + str(DefaultIdWorker.get_id())
+    new_message = {"session_id": session_id, "messages": travel_message}
+    await save_chat_history(user, new_message)
+    return success("New session created successfully", new_message)
+
+
 
