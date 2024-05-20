@@ -83,6 +83,16 @@ Thanks to all the people who contributed to this innovative project.
 <a href="https://github.com/bytewiz3/TravelGPT/graphs/contributors">Contributor List</a>
 
 
+## Contact Us
+
+<p align="center">
+  <a href="https://twitter.com/exploreease0319" style="margin-right: 20px;"><img src="https://github.com/bytewiz3/TravelGPT/blob/master/social/logo-social-twitter.png" alt="Twitter" style="width: 60px;"/></a>
+  <a href="https://github.com/bytewiz3/TravelGPT" style="margin-right: 20px;"><img src="https://github.com/bytewiz3/TravelGPT/blob/master/social/logo-social-github.png" alt="Github" style="width: 60px;"/></a>
+  <a href="https://weibo.com/2735096467/5025334181232881" style="margin-right: 20px;"><img src="https://github.com/bytewiz3/TravelGPT/blob/master/social/logo-social-weibo.png" alt="Weibo" style="width: 60px;"/></a>
+  <a href="https://www.xiaohongshu.com/user/profile/65204da1000000002402e5f5" style="margin-right: 20px;"><img src="https://github.com/bytewiz3/TravelGPT/blob/master/social/logo-social-xiaohongshu.png" alt="Xiaohongshu" style="width: 60px;"/></a>
+</p>
+
+
 ## License
 
 MIT 
