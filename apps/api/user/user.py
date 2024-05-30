@@ -28,7 +28,7 @@ from common.utils.md5_utils import md5
 route = APIRouter()
 Templ = templates.TemplateResponse
 
-# 读取应用配置
+# Read application configuration
 cfg = load_yaml("config/application.yaml")
 reset_pwd_cfg = cfg.get("reset_pwd")
 reset_pwd_url = os.environ.get("RESET_PWD_URL") or reset_pwd_cfg.get("url")
@@ -36,16 +36,16 @@ reset_pwd_url = os.environ.get("RESET_PWD_URL") or reset_pwd_cfg.get("url")
 
 
 @logger.catch()
-@route.post("/_login", summary='用户登录，获取TOKEN')
+@route.post("/_login", summary='User login, get TOKEN')
 def login(request: Request,
           username: str = Body(...),
           passwd: str = Body(...), ):
-    logger.debug(f"{username} 用户登录中...")
+    logger.debug(f"{username} user logging in...")
     session = new_session()
     user = session.query(Users).filter_by(username=username,
                                           passwd=md5(passwd)).first()
     if not user:
-        return error("登录失败! 用户不存在或密码不正确!", -1)
+        return error("Login failed! User does not exist or password is incorrect!", -1)
 
     logger.debug(user)
 
@@ -64,13 +64,13 @@ def login(request: Request,
     payload = {
         "iat": int(time.time()),
         "exp": int(time.time()) + 86400 * 7,
-        'iss': 'travel_gpt',  # token签发者
+        'iss': 'travel_gpt',  # token issuer
         'data': info,
         "jti": "4f1g23a12aa"
     }
-    # 生成token
+    # Generate token
     info["token"] = jwt.encode(payload, conf.SECRET_KEY, algorithm='HS512', )
-    #  增加登录历史记录
+    # Add login history record
     login_history = LoginHistory(username=user.username,
                                  nickname=user.nickname,
                                  phone=user.phone,
@@ -82,11 +82,11 @@ def login(request: Request,
     session.flush()
     session.close()
 
-    return success("登录成功!", info)
+    return success("Login successful!", info)
 
 
 @logger.catch()
-@route.post("/_register", summary='用户注册')
+@route.post("/_register", summary='User registration')
 def register(request: Request,
              username: str = Body(...),
              passwd: str = Body(...),
@@ -99,10 +99,10 @@ def register(request: Request,
 
     session = new_session()
     user = session.query(Users).filter(or_(Users.username == username,
-                                           Users.phone == (phone or '$$$$$$'),  # 不存在的字符串，作为条件
-                                           Users.email == (email or '$$$$$$'),  # 不存在的字符串，作为条件
+                                           Users.phone == (phone or '$$$$$$'),  # Nonexistent string, used as condition
+                                           Users.email == (email or '$$$$$$'),  # Nonexistent string, used as condition
                                            )).first()
-    check_duplicate(user, "用户已经存在!")
+    check_duplicate(user, "User already exists!")
 
     user = Users(username=username, nickname=nickname, status=1)
     user.passwd = md5(passwd)
@@ -113,11 +113,11 @@ def register(request: Request,
     session.commit()
     session.flush()
 
-    return success("用户注册成功!")
+    return success("User registered successfully!")
 
 
 @logger.catch()
-@route.post("/_find_pwd", summary='找回密码')
+@route.post("/_find_pwd", summary='Find password')
 def find_pwd(request: Request,
              username: str = Body(...),
              email: str = Body(default=None)):
@@ -125,45 +125,45 @@ def find_pwd(request: Request,
     check_user(username)
 
     user = find_user(username, email)
-    check_not_empty(user, "用户不存在,请重新输入")
+    check_not_empty(user, "User does not exist, please input again")
 
-    # 邮箱
+    # Email
     email = user.email
 
-    # aes加密后的KEY
+    # Key encrypted by AES
     reset_pwd_salt = random_str(32)
     encrypt_key = aes_encrypt(reset_pwd_salt, username + "^^" + email)
     RedisUtils.set("reset_pwd:" + encrypt_key, "1")
     RedisUtils.set("reset_pwd:" + encrypt_key + ":rnd_str", reset_pwd_salt)
 
     url = f"{reset_pwd_url}?reset_key={encrypt_key}"
-    is_send = send_email("找回密码", f"通过下面的链接，找回您的密码! \r\n {url}", email)
-    return success("已发送邮件，请通过邮箱找回密码!") if is_send else error("发送邮件失败!")
+    is_send = send_email("Find Password", f"Use the link below to retrieve your password! \r\n {url}", email)
+    return success("Email sent, please retrieve password through email!") if is_send else error("Failed to send email!")
 
 
 @logger.catch()
-@route.post("/_find_modify_pwd", summary='找回修改密码')
+@route.post("/_find_modify_pwd", summary='Find and modify password')
 def find_modify_pwd(request: Request,
                     reset_key: str = Body(...),
                     new_pwd: str = Body(...),
                     repeat_new_pwd: str = Body(...)):
-    check_not_empty(reset_key, "找回密码Key不能为空")
+    check_not_empty(reset_key, "Reset key cannot be empty")
     check_pwd(new_pwd)
 
-    check_not_empty(new_pwd, "新的密码")
-    check_not_empty(repeat_new_pwd, "重复新的密码")
-    check_true(new_pwd == repeat_new_pwd, "请确认输入的密码是否一致")
+    check_not_empty(new_pwd, "New password")
+    check_not_empty(repeat_new_pwd, "Repeat new password")
+    check_true(new_pwd == repeat_new_pwd, "Please confirm whether the entered passwords are consistent")
 
     is_exists = RedisUtils.exists("reset_pwd:" + reset_key)
-    check_true(is_exists, "找回密码Key已失效，请重新找回密码!")
+    check_true(is_exists, "Reset key has expired, please retrieve password again!")
 
-    # 解密
+    # Decrypt
     try:
         reset_pwd_salt = RedisUtils.get("reset_pwd:" + reset_key + ":rnd_str")
         user_email = aes_decrypt(reset_pwd_salt.decode(), reset_key)
     except Exception as e:
         logger.error(e)
-        return error("找回密码Key已失效，请重新找回密码!")
+        return error("Reset key has expired, please retrieve password again!")
 
     username, email = user_email.split("^^")
     session = new_session()
@@ -176,11 +176,11 @@ def find_modify_pwd(request: Request,
         if ret:
             RedisUtils.delete("reset_pwd:" + reset_key)
             RedisUtils.delete("reset_pwd:" + reset_key + ":rnd_str")
-            return success("密码修改成功!")
+            return success("Password modified successfully!")
     except Exception as e:
         print(e)
         session.rollback()
-        return error("密码修改成功失败", 501)
+        return error("Failed to modify password", 501)
 
 
 @logger.catch()
@@ -194,12 +194,12 @@ class CurrentUser:
 
         if not request:
             self.user_id = "-1"
-            self.username = "匿名用户"
-            self.nickname = "匿名用户"
+            self.username = "Anonymous User"
+            self.nickname = "Anonymous User"
             return
 
         if not token:
-            raise AuthError('用户未登录!')
+            raise AuthError('User not logged in!')
 
         try:
             users = jwt.decode(token, conf.SECRET_KEY, algorithms=['HS512'])
@@ -208,11 +208,11 @@ class CurrentUser:
             raise ServerError(e.args[0], 401)
 
         if not users:
-            raise ServerError("登录Token校验异常")
+            raise ServerError("Login token verification exception")
 
         user = users.get('data')
         if not user:
-            raise ServerError("登录Token校验异常")
+            raise ServerError("Login token verification exception")
 
         logger.debug(user)
 
@@ -234,7 +234,7 @@ class CurrentUser:
 
 
 @logger.catch()
-@route.get("/login", summary='用户登录web')
+@route.get("/login", summary='User login web')
 def login(request: Request):
     context = {'request': request, }
     return Templ('login.html', context)
