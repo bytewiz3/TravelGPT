@@ -13,18 +13,18 @@ route = APIRouter()
 
 load_dotenv()
 
-# 读取应用配置
+# Read application configuration
 cfg = load_yaml("config/application.yaml")
 
 
 @logger.catch()
-@route.post("/address_list", summary='根据内容获取地址信息')
+@route.post("/address_list", summary='Get address information based on content')
 async def address_list(params: dict):
     contents = params.get("messages") or []
     if len(contents) != 2:
-        return error("您的参数有误")
+        return error("Your parameters are incorrect")
 
-    logger.info(f"消息问答内容 `{contents}`")
+    logger.info(f"Message Q&A content: `{contents}`")
 
     question = contents[0]
     answer = contents[1]
@@ -36,7 +36,7 @@ async def address_list(params: dict):
 
 
 @logger.catch()
-@route.post("/circum_address_list", summary='根据内容获取周边信息')
+@route.post("/circum_address_list", summary='Get surrounding information based on content')
 async def circum_address_list(params: dict):
     address_name = params.get("address_name") or ""
     check_not_empty(address_name)
@@ -44,12 +44,12 @@ async def circum_address_list(params: dict):
 
 
 async def address_parser(site_list: set, address_list: set):
-    # 地址加前缀，更加精确地定位
+    # Add prefix to addresses for more accurate positioning
     pre_name = site_list.pop() if len(site_list) == 1 else ""
 
     merge_addr_with_url = []
     for addr in address_list:
-        # 使用`高德地图`查询地址的经纬度
+        # Use 'Gaode Maps' to query the latitude and longitude of the address
         addr_local, annotate_url = await gaode(pre_name, addr)
         addr_local["annotate_url"] = annotate_url
         merge_addr_with_url.append(addr_local)
