@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-@Time ： 2021/12/29 16:19
-@Auth ： Jolg
+@Time ： 2023/06/14 16:19
+@Auth ： Yijie Weng
 @File ：hello.py
 @IDE ：PyCharm
 
@@ -18,17 +18,17 @@ def hello():
     initlog()
     initdb()
     if conf.debug:
-        print(f"基础参数：{conf}")
-        print(f"数据库：{mysqlconf}")
-        docs = f'接口文档 :  http://{conf.host}:{conf.port}{conf.DOCS_URL}'
+        print(f"Basic parameters: {conf}")
+        print(f"Database: {mysqlconf}")
+        docs = f'API documentation: http://{conf.host}:{conf.port}{conf.DOCS_URL}'
     txt = f'''============================================================================
 
-            项目名称 :  {conf.title}           
-            开发人员 :  waj
-            开发时间 :  2024-04-01 
-            当前版本 :  {conf.VERSION}
+            Project Name :  {conf.title}           
+            Developer :  Yijie Weng
+            Development Date :  2023-06-14 
+            Current Version :  {conf.VERSION}
             {docs}
-            启动环境 :  {conf.ENV}  |  DEBUG: {conf.debug}   |    日志级别 {LogLevel}            
+            Environment :  {conf.ENV}  |  DEBUG: {conf.debug}   |    Log Level {LogLevel}            
 ============================================================================'''
     print(txt)
-    logger.info("启动成功！")
+    logger.info("Startup successful！")
