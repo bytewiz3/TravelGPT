@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-@Time ： 2021/12/29 16:18
-@Auth ： Jolg
+@Time ： 2023/06/29 16:18
+@Auth ： Yijie Weng
 @File ：log.py
 @IDE ：PyCharm
 
