@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# 读取应用配置
+# Read application configuration
 cfg = load_yaml("config/application.yaml")
 
-# 高德地图开放平台申请的key
+# Key obtained from the AMap Open Platform
 api_key = os.environ.get("GAO_DE_API_KEY") or cfg.get("gao_de").get("api_key")
 api_url = os.environ.get("GAO_DE_API_URL") or cfg.get("gao_de").get("api_url")
 nva_url = os.environ.get("GAO_DE_NVA_URL") or cfg.get("gao_de").get("nva_url")
@@ -44,7 +44,7 @@ async def gaode(pre_name, addr_name):
 
 async def circum_address(key_word: str):
     """
-    周边信息查询
+    Surrounding information query
     """
     para = {
         'key': api_key,
@@ -59,6 +59,6 @@ async def circum_address(key_word: str):
 
 
 if __name__ == '__main__':
-    # a, u = gaode("", "西湖")
+    # a, u = gaode("", "West Lake")
     # print(a, u)
-    print(circum_address("西湖"))
+    print(circum_address("West Lake"))
