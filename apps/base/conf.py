@@ -12,20 +12,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 fastapi_env = os.environ.get('FASTAPI_ENV')
 # fastapi_env=None
 
-venv = '开发环境' if fastapi_env else '生产环境'
+venv = 'Development Environment' if fastapi_env else 'Production Environment'
 
 
 class BaseConfig(BaseModel):
     VERSION: str = '1.0.0'
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 天
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 1 day
     SECRET_KEY: str = '-*&^)()sd(*A%&^aWEQaasda_asdasd*&*)(asd%$#'
-    # 文档地址 成产环境可以关闭 None
+    # Document address, can be disabled in production None
     DOCS_URL: str = "/docs"
-    # # 文档关联请求数据接口 成产环境可以关闭 None
+    # Document-related request data interface, can be disabled in production None
     OPENAPI_URL: str = "/openapi.json"
-    # 禁用 redoc 文档
+    # Disable redoc document
     REDOC_URL: str = "/redoc"
-    # 环境名称
+    # Environment name
     ENV: str = venv
     access_records: bool = False
 
@@ -52,8 +52,8 @@ class Config(BaseConfig):
 #     config.DOCS_URL = "/docs"
 #     config.OPENAPI_URL = "/openapi.json"
 #     config.REDOC_URL = "/redoc"
-#     docs = f'接口文档 :  http://{config.host}:{config.port}{config.DOCS_URL}'
-#     config.ENV = "开发环境"
+#     docs = f'API Documentation: http://{config.host}:{config.port}{config.DOCS_URL}'
+#     config.ENV = "Development Environment"
 # if config.debug:
 #     config.LOGLEVEL = "DEBUG"
 
@@ -71,7 +71,7 @@ def parserconf():
         parserconfig.items('mysql')
         return parserconfig
     except:
-        logger.exception("配置文件错误！")
+        logger.exception("Configuration file error!")
 
 
 pconf = parserconf()

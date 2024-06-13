@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+#messages .toast-container {
+    margin-bottom: 12px;
+}
+
+.background-user {
+    background-color: #2372cc;
+}
+
+.background-assistant {
+    background-color: #2c8310;
+}
+
