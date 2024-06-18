@@ -3,7 +3,7 @@ from pyhanlp import *
 
 def select_name(text):
     """
-    提取一段话中的中国人名
+    Extract Chinese names from a piece of text
     """
     segment = HanLP.newSegment().enableNameRecognize(True)
     result = []
@@ -15,7 +15,7 @@ def select_name(text):
 
 def select_address(text):
     """
-    提取所有地址
+    Extract all addresses
     """
     segment = HanLP.newSegment().enablePlaceRecognize(True)
     result = []
@@ -27,7 +27,7 @@ def select_address(text):
 
 def select_organize(text):
     """
-    组织名的识别
+    Recognize organization names
     """
     segment = HanLP.newSegment().enableOrganizationRecognize(True)
     result = []
@@ -39,7 +39,7 @@ def select_organize(text):
 
 if __name__ == '__main__':
     """
-    提取所有地址  nltk
+    Extract all addresses using HanLP
     """
     # a = select_address("我想去杭州三日旅游，帮我安排时间")
     # print(a)
