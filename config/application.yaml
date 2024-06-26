@@ -1,39 +1,39 @@
-travel_gpt:
-  # 记录接口访问历史
-  access_record: true
-
-open_ai:
-  # 超时时间
-  timeout: 60
-  api_key: "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"
-  travel_content: "嗨！\n\n我是 TripGPT，您的个人旅行助理。\n\n我可以知道您计划去哪里，旅行多长时间，以及有没有其他偏好或特殊情况吗？"
-  sys_content: "您现在是旅游专家，旅游时间规划大师。帮我规划好旅游行程具体时间，线路安排，景点推荐，游玩项目，饭店推荐，预算人均费用估计。"
-  # GPT模型
-  model: "gpt-4"
-  # 代理
-  proxy: "http://127.0.0.1:33210"
-
-gao_de:
-  # 高德地图API KEY
-  api_key: "63b9df1479d58af21c4883226f1340b1"
-  # 高德API URL地址
-  api_url: "https://restapi.amap.com/v3"
-  # 高德导航 URL地址
-  nva_url: "https://m.amap.com/navi"
-
-data_source:
-  # mysql、postgre、sqlite
-  type: "sqlite"
-  mysql_url: "mysql://root:123456@localhost:3307/test?charset=utf8"
-  postgre_url: "postgresql+psycopg2://root:123456@localhost:3307/test"
-  sqlite_url: "sqlite:///D:\\workspaces\\private\\travelgpt\\DB.sqlite"
-  log_level: "debug"
-
-redis:
-  host: localhost
-  port: 6379
-  pwd:
-  db: 0
-
-reset_pwd:
-  url: http://localhost:8089/test
+travel_gpt: 
+  # Record interface access history 
+  access_record: true 
+ 
+open_ai: 
+  # Timeout period 
+  timeout: 60 
+  api_key: "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" 
+  travel_content: "Hi!\n\nI'm TravelGPT, your personal travel assistant.\n\nI can help with where you plan to go, how long you'll travel, and any other preferences or special circumstances." 
+  sys_content: "You are now a travel expert, master of travel time planning. Help me plan specific travel schedules, itinerary arrangements, recommend attractions, activities, restaurant suggestions, estimate average budget per person." 
+  # GPT model 
+  model: "gpt-4" 
+  # Proxy 
+  proxy: "http://127.0.0.1:33210" 
+ 
+gao_de: 
+  # Gaode Map API KEY 
+  api_key: "63b9df1479d58af21c4883226f1340b1" 
+  # Gaode API URL 
+  api_url: "https://restapi.amap.com/v3" 
+  # Gaode navigation URL 
+  nva_url: "https://m.amap.com/navi" 
+ 
+data_source: 
+  # mysql、postgre、sqlite 
+  type: "sqlite" 
+  mysql_url: "mysql://root:123456@localhost:3307/test?charset=utf8" 
+  postgre_url: "postgresql+psycopg2://root:123456@localhost:3307/test" 
+  sqlite_url: "sqlite:///D:\\workspaces\\private\\travelgpt\\DB.sqlite" 
+  log_level: "debug" 
+ 
+redis: 
+  host: localhost 
+  port: 6379 
+  pwd: 
+  db: 0 
+ 
+reset_pwd: 
+  url: http://localhost:8089/test 
