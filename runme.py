@@ -16,4 +16,4 @@ if __name__ == "__main__":
                     log_config="apps/base/log_conf.json"
                     )
     except Exception as e:
-        logger.exception("服务异常！", e)
+        logger.exception("Service Exception!", e)
