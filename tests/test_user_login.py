@@ -12,7 +12,7 @@ class TestUserRegister(unittest.TestCase):
             "passwd": "Testpassword123@"  
         })  
         self.assertEqual(response.status_code, 200)  
-        self.assertIn("登录成功!", response.json()["msg"])  
+        self.assertIn("Login successful!", response.json()["msg"])  
         self.assertIn("1793420037466497024", response.json()["data"]["user_id"])  
         self.assertIn("testuser", response.json()["testuser"]["username"])  
         self.assertIn("testnick", response.json()["testnick"]["nickname"])  
