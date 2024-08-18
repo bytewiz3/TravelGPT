@@ -7,7 +7,7 @@ heroku logs --tail
 heroku 
  
 /app/.heroku/python/lib/python3.8/site-packages/pyhanlp/static/ 
-下载 https://file.hankcs.com/hanlp/hanlp-1.8.4-release.zip 到 /app/.heroku/python/lib/python3.8/site-packages/pyhanlp/static/hanlp-1.8.4-release.zip 
+download https://file.hankcs.com/hanlp/hanlp-1.8.4-release.zip to /app/.heroku/python/lib/python3.8/site-packages/pyhanlp/static/hanlp-1.8.4-release.zip 
 /app/.heroku/python/lib/python3.8/site-packages/pyhanlp/static/hanlp-1.8.4-release.zip 
  
 wget -o data-for-1.8.4.zip https://file.hankcs.com/hanlp/data-for-1.7.5.zip 
