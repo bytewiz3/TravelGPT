@@ -17,7 +17,7 @@ ContentType：`application/json`
 
 ##### Body Parameter
 
-| Name | Type | Required | Max Length | 描述 | 示例值 |
+| Name | Type | Required | Max Length | Description | 示例值 |
 | --- | --- | --- | --- | --- | --- |
 | passwd | string | 是 |  |  | admin |
 | username | string | 是 |  |  | admin |
