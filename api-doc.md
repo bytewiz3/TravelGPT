@@ -19,7 +19,7 @@ ContentType：`application/json`
 
 | Name | Type | Required | Max Length | Description | Example Value |
 | --- | --- | --- | --- | --- | --- |
-| passwd | string | 是 |  |  | admin |
+| passwd | string | Y |  |  | admin |
 | username | string | 是 |  |  | admin |
 
 #### 请求示例
