@@ -22,7 +22,7 @@ ContentType：`application/json`
 | passwd | string | Y |  |  | admin |
 | username | string | Y |  |  | admin |
 
-#### 请求示例
+#### Request Example
 
 ```
 {
