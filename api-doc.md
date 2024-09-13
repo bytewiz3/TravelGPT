@@ -31,7 +31,7 @@ ContentType：`application/json`
 }
 ```
 
-#### 响应参数
+#### Response Parameters
 
 无
 
