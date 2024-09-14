@@ -33,7 +33,7 @@ ContentType：`application/json`
 
 #### Response Parameters
 
-无
+None
 
 #### 响应示例
 
