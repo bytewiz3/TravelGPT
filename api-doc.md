@@ -35,11 +35,11 @@ ContentType：`application/json`
 
 None
 
-#### 响应示例
+#### Response Example
 
 ```
 {
-    "msg": "登录成功!",
+    "msg": "Login successful!",
     "code": 0,
     "data": {
         "user_id": "1777881255728259072",
