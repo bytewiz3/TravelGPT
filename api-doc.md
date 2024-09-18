@@ -44,7 +44,7 @@ None
     "data": {
         "user_id": "1777881255728259072",
         "username": "admin",
-        "nickname": "管理员",
+        "nickname": "admin",
         "roles": [
             "admin"
         ],
