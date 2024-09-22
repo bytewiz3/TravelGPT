@@ -66,7 +66,7 @@ None
 
 - `POST` /api/v1/user/_register
 
-描述：
+Description:
 
 ContentType：`application/json`
 
