@@ -60,7 +60,7 @@ None
 
 None
 
-### 2. 用户注册
+### 2. User Registration
 
 #### URL
 
