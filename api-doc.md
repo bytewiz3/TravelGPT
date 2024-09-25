@@ -74,7 +74,7 @@ ContentType：`application/json`
 
 ##### Body Parameter
 
-| Name | 类型 | 必填 | 最大长度 | 描述 | 示例值 |
+| Name | Type | 必填 | 最大长度 | 描述 | 示例值 |
 | --- | --- | --- | --- | --- | --- |
 | passwd | string | 是 | - |  | 2 |
 | phone | string | 否 | - |  | 1111 |
