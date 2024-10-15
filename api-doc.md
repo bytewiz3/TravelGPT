@@ -76,7 +76,7 @@ ContentType：`application/json`
 
 | Name | Type | Required | Max Length | Description | Example |
 | --- | --- | --- | --- | --- | --- |
-| passwd | string | 是 | - |  | 2 |
+| passwd | string | Y | - |  | 2 |
 | phone | string | 否 | - |  | 1111 |
 | nickname | string | 否 | - |  | 2 |
 | email | string | 否 | - |  | 2222 |
