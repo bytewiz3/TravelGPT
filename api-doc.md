@@ -79,7 +79,7 @@ ContentType：`application/json`
 | passwd | string | Y | - |  | 2 |
 | phone | string | N | - |  | 1111 |
 | nickname | string | N | - |  | 2 |
-| email | string | 否 | - |  | 2222 |
+| email | string | N | - |  | 2222 |
 | username | string | 是 | - |  | 5555 |
 
 #### 请求示例
