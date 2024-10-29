@@ -80,7 +80,7 @@ ContentType：`application/json`
 | phone | string | N | - |  | 1111 |
 | nickname | string | N | - |  | 2 |
 | email | string | N | - |  | 2222 |
-| username | string | 是 | - |  | 5555 |
+| username | string | Y | - |  | 5555 |
 
 #### 请求示例
 
