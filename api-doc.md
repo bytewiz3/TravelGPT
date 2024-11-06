@@ -82,7 +82,7 @@ ContentType：`application/json`
 | email | string | N | - |  | 2222 |
 | username | string | Y | - |  | 5555 |
 
-#### 请求示例
+#### Request Example
 
 ```
 {
