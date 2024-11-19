@@ -98,7 +98,7 @@ ContentType：`application/json`
 
 None
 
-#### 响应示例
+#### Response example
 
 ```
 {
