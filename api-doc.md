@@ -102,7 +102,7 @@ None
 
 ```
 {
-    "msg": "用户注册成功!",
+    "msg": "User registration successful!",
     "code": 0,
     "data": ""
 }
