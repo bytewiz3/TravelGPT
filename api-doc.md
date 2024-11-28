@@ -109,7 +109,7 @@ None
 ---------------------------
 {
     "code": 420,
-    "msg": "用户已经存在!"
+    "msg": "The user already exists!"
 }
 ```
 
