@@ -119,7 +119,7 @@ None
 ## 02. Address
 
 
-### 1. 高德地址导航
+### 1. Gaode Address Navigation
 
 #### URL
 
